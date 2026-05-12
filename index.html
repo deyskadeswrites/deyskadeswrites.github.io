@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deys Kade — Sample Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --obsidian: #0d1117;
+  --obsidian2: #161b22;
+  --obsidian3: #21262d;
+  --cream: #e8e6e1;
+  --cream2: #f0ede8;
+  --mid: #8b949e;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+  --bg: var(--obsidian);
+  --bg2: var(--obsidian2);
+  --bg3: var(--obsidian3);
+  --text: var(--cream);
+  --text2: var(--cream2);
+  --muted: var(--mid);
+  --border: rgba(232,230,225,0.12);
+  --border-hover: rgba(232,230,225,0.28);
+  --glow: rgba(232,230,225,0.06);
+  --glow-strong: rgba(232,230,225,0.12);
+}
+
+[data-theme="light"] {
+  --bg: var(--cream2);
+  --bg2: #e0ddd8;
+  --bg3: #d8d5cf;
+  --text: var(--obsidian);
+  --text2: #1a1f2a;
+  --muted: #6a7080;
+  --border: rgba(13,17,23,0.1);
+  --border-hover: rgba(13,17,23,0.25);
+  --glow: rgba(13,17,23,0.04);
+  --glow-strong: rgba(13,17,23,0.08);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.5s var(--ease-premium), color 0.5s var(--ease-premium);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* THEME TOGGLE */
+.theme-toggle {
+  position: fixed;
+  top: 24px; right: 24px;
+  z-index: 1000;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s var(--ease-premium);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.theme-toggle:hover { transform: scale(1.1); border-color: var(--border-hover); }
+.theme-toggle:active { transform: scale(0.92); }
+.theme-icon { width: 20px; height: 20px; color: var(--text); }
+.theme-icon svg { width: 100%; height: 100%; fill: currentColor; }
+[data-theme="dark"] .icon-moon { display: block; }
+[data-theme="dark"] .icon-sun  { display: none; }
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun  { display: block; }
+
+/* ANIMATIONS */
+@keyframes driftUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim { opacity: 0; animation: driftUp 0.9s var(--ease-premium) forwards; }
+.anim-1 { animation-delay: 0.05s; }
+.anim-2 { animation-delay: 0.18s; }
+.anim-3 { animation-delay: 0.32s; }
+.anim-4 { animation-delay: 0.46s; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 80px 0 56px;
+}
+
+.logo-wrap { display: inline-block; margin-bottom: 32px; }
+.logo-type { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.logo-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 12vw, 80px);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1;
+}
+.logo-divider { width: 100%; display: flex; flex-direction: column; gap: 4px; margin: 6px 0; }
+.logo-line { height: 2px; background: var(--text); opacity: 0.7; border-radius: 2px; }
+.hero-tagline {
+  font-size: 11px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 8px; font-weight: 500;
+}
+.hero-sub {
+  font-size: 13px; color: var(--muted);
+  font-weight: 300; letter-spacing: 1.5px; line-height: 1.7;
+}
+
+/* DIVIDER */
+.divider {
+  display: flex; align-items: center;
+  gap: 16px; margin: 40px 0;
+}
+.divider-lines { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.divider-lines span { display: block; height: 1.5px; background: var(--border-hover); border-radius: 2px; }
+.divider-label {
+  font-size: 9px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--muted);
+  white-space: nowrap; font-weight: 600;
+}
+
+/* SAMPLE CARDS */
+.samples-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.sample-card {
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: all 0.5s var(--ease-premium);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.sample-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glow);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-premium);
+}
+
+.sample-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.sample-card:hover::before { opacity: 1; }
+
+.sample-card.featured { border-color: var(--border-hover); }
+
+.sample-badge {
+  position: absolute;
+  top: 0; right: 0;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  font-weight: 700;
+}
+
+.sample-type {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.sample-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.sample-desc {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  line-height: 2;
+  font-weight: 300;
+}
+
+.sample-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sample-tag {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  font-weight: 500;
+}
+
+.sample-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+.sample-preview {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 300;
+  width: 100%;
+  line-height: 1.6;
+}
+
+.sample-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: gap 0.3s ease;
+}
+.sample-link:hover { gap: 12px; }
+
+/* MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border-hover);
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: driftUp 0.4s var(--ease-premium) both;
+}
+
+.modal-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg2);
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.modal-type {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.modal-close {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.modal-close:hover { border-color: var(--border-hover); color: var(--text); }
+
+.modal-body {
+  padding: 28px;
+}
+
+.modal-section {
+  margin-bottom: 28px;
+}
+
+.modal-section-label {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-text {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 2;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  white-space: pre-line;
+}
+
+.modal-post {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+}
+
+.modal-post-num {
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.modal-post-text {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.9;
+  font-weight: 300;
+  white-space: pre-line;
+}
+
+.modal-ad-block {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.modal-ad-label {
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.modal-ad-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.modal-ad-field {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  min-width: 90px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.modal-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-btn-primary {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 20px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+  transition: opacity 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.modal-btn-primary:hover { opacity: 0.85; }
+
+.modal-btn-ghost {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 20px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+  border: 1px solid var(--border-hover);
+  transition: all 0.3s ease;
+}
+.modal-btn-ghost:hover { border-color: var(--text); }
+
+/* BACK LINK */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 48px;
+  margin-top: 20px;
+  transition: color 0.3s ease, gap 0.3s ease;
+}
+.back-link:hover { color: var(--text); gap: 12px; }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 48px 0 32px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+/* SCROLLBAR */
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-track { background: var(--bg2); }
+.modal::-webkit-scrollbar-thumb { background: var(--border-hover); }
+</style>
+</head>
+<body>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <span class="theme-icon">
+    <span class="icon-moon">
+      <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </span>
+    <span class="icon-sun">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/></svg>
+    </span>
+  </span>
+</button>
+
+<div class="container">
+
+  <!-- BACK LINK -->
+  <a href="https://deyskadewrites.github.io" class="back-link anim anim-1">← Back to Main Site</a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-wrap anim anim-1">
+      <div class="logo-type">
+        <span class="logo-word">DEYS</span>
+        <div class="logo-divider"><span class="logo-line"></span><span class="logo-line"></span></div>
+        <span class="logo-word">KADE</span>
+      </div>
+    </div>
+    <p class="hero-tagline anim anim-2">Sample Work</p>
+    <p class="hero-sub anim anim-3">Every piece below was written for a real purpose.<br>This is the standard you can expect.</p>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider anim anim-4">
+    <div class="divider-lines"><span></span><span></span></div>
+    <div class="divider-label">10 Services · 10 Samples</div>
+    <div class="divider-lines"><span></span><span></span></div>
+  </div>
+
+  <!-- SAMPLES GRID -->
+  <div class="samples-grid">
+
+    <!-- E-BOOK -->
+    <div class="sample-card featured" onclick="openModal('ebook')">
+      <div class="sample-badge">Featured</div>
+      <div class="sample-type">E-Book</div>
+      <div class="sample-title">The Growth Equation</div>
+      <div class="sample-desc">A full-length business e-book on why most businesses stay small — and what the ones that don't do differently. 12 chapters, epilogue, and acknowledgments.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">12 Chapters</span>
+        <span class="sample-tag">Business</span>
+        <span class="sample-tag">~15,000 Words</span>
+        <span class="sample-tag">Full PDF</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Growth is not an accident. It's a system."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- BLOG POST -->
+    <div class="sample-card" onclick="openModal('blog')">
+      <div class="sample-type">Blog Post</div>
+      <div class="sample-title">The Clean Content Framework</div>
+      <div class="sample-desc">A strategic content piece on why minimalist copy silently outsells high-noise marketing — and the exact framework to fix it.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">1,623 Words</span>
+        <span class="sample-tag">Strategy</span>
+        <span class="sample-tag">Copywriting</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Clutter isn't a design problem. It's a trust problem."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- X THREAD -->
+    <div class="sample-card" onclick="openModal('thread')">
+      <div class="sample-type">X Thread</div>
+      <div class="sample-title">Why Cheap Writing Is Costing You More Than You Think</div>
+      <div class="sample-desc">An 8-post thread that breaks down the real cost of bad copy — written to stop the scroll and drive engagement on X.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">8 Posts</span>
+        <span class="sample-tag">Business</span>
+        <span class="sample-tag">Viral Hook</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"The $5 just became $500 in wasted ad spend."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- AD COPY -->
+    <div class="sample-card" onclick="openModal('adcopy')">
+      <div class="sample-type">Ad Copy</div>
+      <div class="sample-title">Deys Kade — Multi-Platform Ad Campaign</div>
+      <div class="sample-desc">Google Search, Facebook/Instagram, and Story ad copy — three formats, one brand, written to convert across every platform.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">Google Ad</span>
+        <span class="sample-tag">Facebook Ad</span>
+        <span class="sample-tag">Story Ad</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Professional Writing. Real Results."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- EMAIL NEWSLETTER -->
+    <div class="sample-card" onclick="openModal('email')">
+      <div class="sample-type">Email Newsletter</div>
+      <div class="sample-title">Your Content Is Lying to Your Clients</div>
+      <div class="sample-desc">A conversion-focused newsletter that speaks directly to business owners who know their content isn't working — and makes them want to act.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">Newsletter</span>
+        <span class="sample-tag">Conversion</span>
+        <span class="sample-tag">Business</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"In 8 seconds they decide: trust or leave."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- PRODUCT DESCRIPTION -->
+    <div class="sample-card" onclick="openModal('product')">
+      <div class="sample-type">Product Description</div>
+      <div class="sample-title">Blog Post Package — Single Post</div>
+      <div class="sample-desc">A product description that sells the value, not just the service. Written to convert visitors into buyers the moment they land on the page.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">E-Commerce</span>
+        <span class="sample-tag">Services</span>
+        <span class="sample-tag">Conversion</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Stop losing clients to boring content."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- PODCAST SCRIPT -->
+    <div class="sample-card" onclick="openModal('podcast')">
+      <div class="sample-type">Podcast Script</div>
+      <div class="sample-title">Why Your Business Isn't Growing</div>
+      <div class="sample-desc">A full podcast episode script with intro, three segments, and a closing CTA — written to sound natural, keep listeners engaged, and convert.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">Full Episode</span>
+        <span class="sample-tag">3 Segments</span>
+        <span class="sample-tag">Business</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Knowing your business and writing about it are two different skills."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- VIDEO SCRIPT -->
+    <div class="sample-card" onclick="openModal('video')">
+      <div class="sample-type">Video Script</div>
+      <div class="sample-title">Why Your Content Isn't Converting</div>
+      <div class="sample-desc">A 60-second short-form video script with timestamped sections — hook, problem, agitate, solution, offer. Built for Instagram Reels and TikTok.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">60 Seconds</span>
+        <span class="sample-tag">Reels & TikTok</span>
+        <span class="sample-tag">Timestamped</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Your content isn't the problem. Your words are."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+    <!-- WEBSITE COPY -->
+    <div class="sample-card" onclick="openModal('webcopy')">
+      <div class="sample-type">Website Copy</div>
+      <div class="sample-title">Deys Kade — Homepage Copy</div>
+      <div class="sample-desc">Full homepage copy from hero to CTA — written to stop visitors, build trust, explain the offer, and convert them into paying clients.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">Homepage</span>
+        <span class="sample-tag">Full Copy</span>
+        <span class="sample-tag">5 Sections</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Words That Work. Results That Last."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+
+    <!-- CAPTIONS -->
+    <div class="sample-card" onclick="openModal('captions')">
+      <div class="sample-type">Social Media Captions</div>
+      <div class="sample-title">Deys Kade — Brand Captions</div>
+      <div class="sample-desc">5 ready-to-post captions for different content types — motivational, value, promo, pricing, and trust. Written for the Deys Kade brand.</div>
+      <div class="sample-tags">
+        <span class="sample-tag">5 Captions</span>
+        <span class="sample-tag">Instagram</span>
+        <span class="sample-tag">Multiple Styles</span>
+      </div>
+      <div class="sample-footer">
+        <div class="sample-preview">"Your content has 3 seconds to make someone stop scrolling."</div>
+        <span class="sample-link">View Sample →</span>
+      </div>
+    </div>
+
+  </div><!-- /samples-grid -->
+
+  <div class="footer">© 2026 Deys Kade · All rights reserved · <a href="https://deyskadewrites.github.io" style="color:var(--muted);text-decoration:none;">Place Your Order</a></div>
+
+</div><!-- /container -->
+
+<!-- ── MODALS ── -->
+
+<!-- E-BOOK MODAL -->
+<div class="modal-overlay" id="modal-ebook">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">E-Book Sample</div>
+        <div class="modal-title">The Growth Equation</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('ebook')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">About This Sample</div>
+        <div class="modal-text">A full-length business e-book exploring why most businesses stay small — and what the ones that don't do differently. 12 chapters covering bottlenecks, customer clarity, systems, revenue, hiring, marketing, culture, partnerships, and exit strategy.</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Table of Contents</div>
+        <div class="modal-text">Preface: The Lie They Told You About Growth
+Chapter 1: The Bottleneck Is You
+Chapter 2: The One Customer Problem
+Chapter 3: Build the Machine, Not the Product
+Chapter 4: The Revenue Trinity
+Chapter 5: Hiring Is a Strategy, Not a Reaction
+Chapter 6: The Power of Constraints
+Chapter 7: Marketing That Doesn't Feel Like Marketing
+Chapter 8: The Number That Runs Your Business
+Chapter 9: When to Scale — and When Scaling Kills You
+Chapter 10: The Compound Effect of Culture
+Chapter 11: Strategic Partnerships and the Multiplier Effect
+Chapter 12: The Exit Mindset (Even If You Never Plan to Sell)
+Epilogue: The Business That Outlives the Founder</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Sample Extract — Preface</div>
+        <div class="modal-text">"Most businesses don't fail because of bad ideas. They fail because of good ideas executed by people who were never taught how to grow.
+
+Growth is not an accident. It's a system.
+
+The entrepreneurs who grow don't just work harder. They think differently. They build differently. They make decisions based on a set of principles that the rest of the business world hasn't quite caught up to."</div>
+      </div>
+      <div class="modal-cta">
+        <a href="The_Growth_Equation_by_Deys_Kade.pdf" target="_blank" class="modal-btn-primary">Download Full PDF →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">Order Your E-Book</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG MODAL -->
+<div class="modal-overlay" id="modal-blog">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Blog Post Sample</div>
+        <div class="modal-title">The Clean Content Framework</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('blog')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">About This Sample</div>
+        <div class="modal-text">1,623-word strategic blog post on why minimalist copy silently outsells high-noise marketing. Includes a case study, stat block, pull quotes, objection handling, and a 3-step action plan.</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Opening Hook</div>
+        <div class="modal-text">"You added more. More bullet points. More adjectives. More offers crammed onto one page. And somehow, the more you said, the less anyone listened.
+
+Here's the counterintuitive truth that took me years to fully accept: clutter isn't a design problem. It's a trust problem."</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">The Framework</div>
+        <div class="modal-text">1. The One-Breath Test — Can you explain what this page offers in a single breath?
+2. The Stranger Test — Show your homepage to someone who's never heard of your brand. What do they see?
+3. The "So What?" Filter — Does every sentence teach, persuade, or advance the narrative?
+4. The One-Door Rule — Each page should have exactly one primary action.</div>
+      </div>
+      <div class="modal-cta">
+        <a href="clean-content-framework.html" target="_blank" class="modal-btn-primary">Read Full Article →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">Order Your Blog Post</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- X THREAD MODAL -->
+<div class="modal-overlay" id="modal-thread">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">X Thread Sample</div>
+        <div class="modal-title">Why Cheap Writing Costs More</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('thread')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Full Thread — 8 Posts</div>
+        <div class="modal-post"><div class="modal-post-num">Post 1 — Hook</div><div class="modal-post-text">Cheap writing is the most expensive mistake a business can make.
+
+Here's the math nobody talks about 🧵👇</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 2</div><div class="modal-post-text">1/ You hired a $5 writer on Fiverr.
+
+The copy was delivered. It was fine. Generic. Forgettable.
+
+Your landing page still isn't converting.
+Your ads still aren't clicking.
+Your emails still aren't opening.
+
+The $5 just became $500 in wasted ad spend.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 3</div><div class="modal-post-text">2/ Bad writing doesn't just fail to sell.
+
+It actively destroys trust.
+
+A typo. A weak headline. A confusing CTA.
+
+Each one tells your prospect the same thing:
+This brand doesn't take itself seriously.
+
+Why should I?</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 4</div><div class="modal-post-text">3/ The biggest lie in business content:
+
+"We just need something up there for now."
+
+There is no "for now" online.
+
+Every visitor who lands on weak copy and leaves
+is a customer you paid to acquire and failed to keep.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 5</div><div class="modal-post-text">4/ Here's what professional writing actually does:
+
+→ Stops the scroll
+→ Builds instant trust
+→ Moves people toward a decision
+→ Makes your brand memorable
+
+That's not a luxury. That's the minimum your business deserves.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 6</div><div class="modal-post-text">5/ The businesses winning online aren't louder.
+
+They're clearer.
+
+One sharp headline beats ten clever ones.
+One focused CTA beats five competing ones.
+One professional writer beats twenty cheap ones.
+
+Clarity is the competitive advantage nobody is buying.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 7</div><div class="modal-post-text">6/ The ROI of good writing:
+
+Higher conversion rates.
+Lower ad spend.
+Stronger brand trust.
+More referrals.
+Better clients.
+
+The ROI of cheap writing:
+
+None of the above.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Post 8 — CTA</div><div class="modal-post-text">If your content isn't working as hard as you are — that's the problem I solve.
+
+10 writing services. Starting from $49.
+Rush delivery available.
+
+Drop a 🖊️ below if this hit different.
+Or visit the link in my bio to order.</div></div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your X Thread →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View All Services →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD COPY MODAL -->
+<div class="modal-overlay" id="modal-adcopy">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Ad Copy Sample</div>
+        <div class="modal-title">Multi-Platform Ad Campaign</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('adcopy')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Google Search Ad</div>
+        <div class="modal-ad-block">
+          <div class="modal-ad-label">Headlines & Description</div>
+          <div class="modal-ad-row"><span class="modal-ad-field">Headline 1</span><span>Professional Content Writer for Hire</span></div>
+          <div class="modal-ad-row"><span class="modal-ad-field">Headline 2</span><span>Blogs · E-Books · Scripts · Captions</span></div>
+          <div class="modal-ad-row"><span class="modal-ad-field">Headline 3</span><span>Starting From $49 · Rush Delivery Available</span></div>
+          <div class="modal-ad-row"><span class="modal-ad-field">Description</span><span>Stop losing clients to weak copy. Get professionally written content delivered on time, in your brand voice. Order today.</span></div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Facebook / Instagram Ad</div>
+        <div class="modal-ad-block">
+          <div class="modal-ad-label">Primary Text</div>
+          <div class="modal-post-text">Your content should be working as hard as you do.
+
+If your captions aren't converting, your blogs aren't ranking, or your website isn't closing sales — the writing is the problem.
+
+I fix that.
+
+✓ 10 professional writing services
+✓ Starting from just $49
+✓ Rush delivery available
+✓ Written in your brand voice
+✓ Revisions included
+
+Don't let weak copy cost you another client.</div>
+          <br>
+          <div class="modal-ad-row" style="margin-top:12px"><span class="modal-ad-field">Headline</span><span>Professional Writing. Real Results.</span></div>
+          <div class="modal-ad-row"><span class="modal-ad-field">CTA Button</span><span>Shop Now</span></div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Short Story / TikTok Ad</div>
+        <div class="modal-ad-block">
+          <div class="modal-post-text">Bad writing is costing you clients.
+
+Professional content starts at $49.
+
+Link in bio. Order today.</div>
+        </div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Ad Copy →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View Pricing →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="modal-overlay" id="modal-email">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Email Newsletter Sample</div>
+        <div class="modal-title">Your Content Is Lying to Your Clients</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('email')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Subject Line</div>
+        <div class="modal-text">Your content is lying to your clients.</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Full Newsletter</div>
+        <div class="modal-text">Hi [First Name],
+
+Let me ask you something uncomfortable.
+
+When was the last time you looked at your website copy and felt genuinely proud of it?
+
+Not "it'll do for now" proud. Actually proud.
+
+If you hesitated — that hesitation is costing you money.
+
+Here's what most business owners don't realize: your content is the first conversation you have with every potential client. Before they DM you. Before they book a call. Before they even read your prices.
+
+They read your words. And in 8 seconds they decide: trust or leave.
+
+Weak copy says leave. Professional copy says stay.
+
+That's exactly what I do for my clients every single day.
+
+✓ Blogs that rank and convert
+✓ E-Books that establish authority
+✓ Captions that stop the scroll
+✓ Website copy that closes sales
+✓ Ad copy that gets clicks
+
+10 services. Starting from just $49. Rush delivery available on everything.
+
+Your content should be working as hard as you do.
+
+→ Order your first piece today
+deyskadewrites.github.io
+
+Talk soon,
+Deys Kade
+Professional Content Writer</div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Newsletter →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View All Services →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modal-product">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Product Description Sample</div>
+        <div class="modal-title">Blog Post Package — Single Post</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('product')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Full Product Description</div>
+        <div class="modal-text">Stop Losing Clients to Boring Content.
+
+Your blog should be your hardest working salesperson — ranking on Google, building trust with readers, and converting visitors into paying clients. Most don't. Not because blogging doesn't work. Because the writing isn't doing its job.
+
+This is where I come in.
+
+A single professionally written blog post, crafted in your brand voice, optimized for your audience, and delivered on time. Every time.
+
+What's included:
+✓ 1 Blog Post (up to 1,500 words)
+✓ SEO optimized
+✓ Written in your brand voice
+✓ Revisions included
+✓ Delivered in 5 days
+✓ Rush delivery available
+
+Starting at $79.
+
+Your audience is already searching for what you know. Make sure they find you — and stay.</div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Description →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View Pricing →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PODCAST MODAL -->
+<div class="modal-overlay" id="modal-podcast">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Podcast Script Sample</div>
+        <div class="modal-title">Why Your Business Isn't Growing</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('podcast')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Full Episode Script</div>
+        <div class="modal-post"><div class="modal-post-num">Intro</div><div class="modal-post-text">Welcome back. I'm glad you're here.
+
+Today we're getting into something that I think about a lot — and something I see costing businesses thousands of dollars every single month without them even realizing it.
+
+We're talking about content. Specifically, why most business content fails before anyone even reads it.
+
+Stay with me — because by the end of this episode you're going to look at your own content completely differently.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Segment 1 — The Problem</div><div class="modal-post-text">Let me paint a picture.
+
+You've got a great product. A solid offer. Real results for real clients. But your Instagram isn't growing. Your website isn't converting. Your emails aren't getting replies.
+
+And you keep thinking — is it the algorithm? Is it my niche? Is it the timing?
+
+Here's the truth nobody wants to say out loud:
+
+It's the writing.
+
+Not your product. Not your strategy. Not the platform.
+
+The words you're using — or not using — are the bottleneck.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Segment 2 — Why This Happens</div><div class="modal-post-text">Most business owners write their own content because it feels like the most natural thing to do. You know your business better than anyone, right?
+
+But here's the problem. Knowing your business and knowing how to write about your business are two completely different skills.
+
+A surgeon knows medicine. That doesn't mean they should write their own marketing copy.
+
+Great writing isn't just grammar and spelling. It's psychology. It's understanding exactly what your reader is thinking, feeling, and fearing — and meeting them right there with the right words at the right moment.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Segment 3 — The Solution</div><div class="modal-post-text">So what's the move?
+
+You have two options.
+
+Option one — spend the next year learning copywriting, content strategy, SEO, and brand voice development.
+
+Option two — hire someone who already knows.
+
+If you're a business owner whose time is worth more than $49 an hour — and I'd argue every business owner's time is — option two is the obvious choice.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Outro</div><div class="modal-post-text">If this episode resonated with you — if you've been sitting on content that isn't working and you're ready to fix it — I want to help.
+
+Visit deyskadewrites.github.io to see all 10 of my writing services. Starting from just $49. Rush delivery available.
+
+Thank you for listening. I'll see you in the next one.</div></div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Script →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View All Services →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="modal-video">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Video Script Sample</div>
+        <div class="modal-title">Why Your Content Isn't Converting</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('video')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Full 60-Second Script</div>
+        <div class="modal-post"><div class="modal-post-num">Hook — 0:00 to 0:05</div><div class="modal-post-text">"Your content isn't the problem. Your words are."</div></div>
+        <div class="modal-post"><div class="modal-post-num">Problem — 0:05 to 0:20</div><div class="modal-post-text">You're posting every day. You're showing up. You're putting in the work.
+But the followers aren't coming. The sales aren't happening.
+And you don't know why.
+Here's why.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Agitate — 0:20 to 0:35</div><div class="modal-post-text">Every piece of content you put out is a conversation with a potential client.
+And right now — that conversation is boring them.
+Not because your offer is bad.
+Because the words aren't doing their job.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Solution — 0:35 to 0:50</div><div class="modal-post-text">Professional writing changes that.
+The right caption stops the scroll.
+The right blog builds trust.
+The right ad copy closes the sale.
+That's exactly what I do.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Offer — 0:50 to 1:00</div><div class="modal-post-text">10 writing services. Starting from $49.
+Rush delivery available.
+Link in bio — order today.</div></div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Script →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View Pricing →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEBSITE COPY MODAL -->
+<div class="modal-overlay" id="modal-webcopy">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Website Copy Sample</div>
+        <div class="modal-title">Deys Kade — Homepage Copy</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('webcopy')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Full Homepage Copy</div>
+        <div class="modal-post"><div class="modal-post-num">Hero Section</div><div class="modal-post-text">Words That Work. Results That Last.
+
+Professional content writing for businesses that are done blending in.
+
+10 services · From $49 · Rush delivery available
+
+→ Place Your Order</div></div>
+        <div class="modal-post"><div class="modal-post-num">Section 2 — The Problem</div><div class="modal-post-text">Your Content Should Be Closing Sales While You Sleep.
+
+Most business content does one thing: exist.
+
+It sits on a website, gets posted to Instagram, goes out in an email — and does absolutely nothing.
+
+No clicks. No conversions. No clients.
+
+That's not a content problem. That's a writing problem. And it's one I solve every single day.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Section 3 — Services</div><div class="modal-post-text">Everything Your Business Needs. Written Professionally.
+
+Blogs · E-Books · Video Scripts · Social Captions · Email Newsletters · Ad Copy · X Threads · Product Descriptions · Podcast Scripts · Website Copy
+
+Starting from just $49.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Section 4 — Trust</div><div class="modal-post-text">Why Deys Kade?
+
+✓ Written in your brand voice — not a template
+✓ Delivered on time, every time
+✓ Revisions included on every order
+✓ Rush delivery available on all services
+✓ No AI padding. No generic filler. Just clean, professional writing.</div></div>
+        <div class="modal-post"><div class="modal-post-num">Section 5 — CTA</div><div class="modal-post-text">Ready To Make Your Words Work?
+
+Place your order today and get professionally written content delivered straight to you.
+
+→ Order Now
+deyskadewrites.github.io</div></div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Website Copy →</a>
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-ghost">View All Services →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAPTIONS MODAL -->
+<div class="modal-overlay" id="modal-captions">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type">Social Media Captions Sample</div>
+        <div class="modal-title">Deys Kade — Brand Captions</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('captions')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">5 Captions — Multiple Styles</div>
+        <div class="modal-post"><div class="modal-post-num">Caption 1 — Intro / Brand Post</div><div class="modal-post-text">Words are the most underrated business tool.
+
+The right caption stops the scroll. The right blog builds trust. The right ad copy closes the sale.
+
+I write all of it.
+
+10 services. Starting from $49. Rush delivery available.
+
+Link in bio to order. 🖊️
+
+#contentwriter #copywriter #hireawriter</div></div>
+        <div class="modal-post"><div class="modal-post-num">Caption 2 — Value Post</div><div class="modal-post-text">Your content has 3 seconds to make someone stop scrolling.
+
+Here's what makes them stop:
+
+A hook that speaks directly to their problem.
+A body that keeps the promise the hook made.
+A CTA that tells them exactly what to do next.
+
+That's it. No tricks. Just precision.
+
+Want content that works like this? Link in bio. 🖊️
+
+#copywriting #contenttips #smallbusiness</div></div>
+        <div class="modal-post"><div class="modal-post-num">Caption 3 — Service Promo</div><div class="modal-post-text">Got an idea worth sharing?
+
+I'll turn it into a full E-Book. Up to 15,000 words. Any topic. Any niche. Written in your voice — not mine.
+
+Starting at $299. Rush delivery available.
+
+DM me or link in bio to order. 📖
+
+#ebookwriter #contentwriter #digitalproducts</div></div>
+        <div class="modal-post"><div class="modal-post-num">Caption 4 — Price Transparency</div><div class="modal-post-text">Here's what professional writing actually costs 👇
+
+Captions · X Threads · Ad Copy — from $49
+Newsletters — from $59
+Blogs · Product Descriptions · Podcast Scripts — from $79
+Video Scripts — from $99
+Website Copy — from $149
+E-Books — from $299
+
+Starting prices. No hidden fees. Rush delivery available on everything.
+
+Link in bio to order. 🖊️
+
+#contentwriter #writingservices #hireawriter</div></div>
+        <div class="modal-post"><div class="modal-post-num">Caption 5 — Trust / Guarantee</div><div class="modal-post-text">Every order I deliver comes with this promise:
+
+✓ Written in your brand voice
+✓ Delivered on time
+✓ Revisions included
+✓ No generic templates
+✓ No AI padding
+
+Just clean, professional writing that works.
+
+10 services starting from $49.
+
+Link in bio to order. 🖊️
+
+#professionalwriter #contentwriting #copywriter</div></div>
+      </div>
+      <div class="modal-cta">
+        <a href="https://deyskadewrites.github.io" target="_blank" class="modal-btn-primary">Order Your Captions →</a>
+        <a href="https://www.instagram.com/deyskadewrites" target="_blank" class="modal-btn-ghost">See Live on Instagram</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* THEME */
+const html = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+const saved = localStorage.getItem('dk-theme') || 'dark';
+html.setAttribute('data-theme', saved);
+toggle.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('dk-theme', next);
+});
+
+/* MODALS */
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+});
+</script>
+</body>
+</html>
